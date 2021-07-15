@@ -1,0 +1,19 @@
+{
+  "name": "check-is-open-cron",
+  "version": "1.0.0",
+  "description": "Small script to know if a business/service is open or closed from a date using cron definition",
+  "main": "src/index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xipotera/check-is-open-cron.git"
+  },
+  "author": "Mathieu Vie <Xipotera>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xipotera/check-is-open-cron/issues"
+  },
+  "homepage": "https://github.com/Xipotera/check-is-open-cron#readme"
+}
