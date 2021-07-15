@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/Xipotera/check-is-open-cron#readme",
   "dependencies": {
-
+    "babel-jest": "^27.0.6",
+    "cron-parser": "^3.5.0",
+    "date-holidays": "^3.8.0",
+    "dayjs": "^1.10.6",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
