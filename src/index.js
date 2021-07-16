@@ -1,11 +1,9 @@
 const {
-  isNil, find, isEmpty, size, initial
+  isNil, find, isEmpty
 } = require('lodash')
 const parser = require('cron-parser')
 
 const Holidays = require('date-holidays')
-
-const hd = new Holidays()
 
 const dayjs = require('dayjs')
 const isoWeek = require('dayjs/plugin/isoWeek')
@@ -18,48 +16,44 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(dayOfYear)
 
+function formatRangeHours (weekdayConfig) {
+  const splitWeekday = weekdayConfig.split(' ')
+  const splitHours = splitWeekday[1]
+  const splitRangeHour = splitHours.split(',')
+  const test = splitRangeHour.map((rangeHour) => {
+    const rangeHourSplit = rangeHour.split('-')
+    if (!isNaN(rangeHourSplit[1])) {
+      const endhour = Number(rangeHourSplit[1]) - 1
+      rangeHourSplit[1] = endhour.toString()
+    }
+    return rangeHourSplit.join('-')
+  })
+  splitWeekday[1] = test.join(',')
+  return splitWeekday.join(' ')
+}
+
 module.exports = (openingConfig, date = undefined) => {
   const { timeZone } = openingConfig
   // eslint-disable-next-line no-param-reassign
   if (isEmpty(date)) date = dayjs().tz(timeZone).format()
-
-  // Disable specific days
-  if (
-    Array.isArray(openingConfig.disabledDays) &&
-    openingConfig.disabledDays.length > 0
-  ) {
-    const dateIsDisabled = !!find(
-      openingConfig.disabledDays,
-      (disabledDate) => {
-        let d = dayjs(disabledDate)
-        if (size(disabledDate) !== 8) {
-          const day = Number(disabledDate.split('-')[0])
-          const month = Number(disabledDate.split('-')[1])
-
-          d = dayjs(new Date())
-            .date(day)
-            .month(month - 1)
-            .tz(timeZone)
-        }
-        return (
-          dayjs(date).dayOfYear() === d.dayOfYear() &&
-          dayjs(date).year() === d.year()
-        )
-      }
-    )
-    if (dateIsDisabled) {
-      return false
-    }
-  }
-
   // Check public hollydays
-  if (!openingConfig.publicHoliday.isOpen) {
-    hd.init(openingConfig.publicHoliday.country, openingConfig.publicHoliday.region)
+  if (!openingConfig.holiday.isOpen) {
+    const hd = new Holidays()
+    hd.init({ country: openingConfig.holiday.country, region: openingConfig.holiday.region, state: openingConfig.holiday.state })
     const isHD = hd.isHoliday(dayjs(date))
     if (
       Array.isArray(isHD) &&
       isHD.length > 0
-    ) return false
+    ) {
+      const BreakException = false
+      try {
+        openingConfig.holiday.checkHolidaysTypes.forEach((holidaysTypes) => {
+          if (find(isHD, { type: holidaysTypes })) throw BreakException
+        })
+      } catch (e) {
+        if (e === BreakException) return false
+      }
+    }
   }
   if (openingConfig.weekDay) {
     const weekday = dayjs(date).isoWeekday()
@@ -67,7 +61,8 @@ module.exports = (openingConfig, date = undefined) => {
     const weekdayConfig = !isNil(openingConfig.weekDay[weekday])
       ? openingConfig.weekDay[weekday]
       : openingConfig.weekDay.default
-    const interval = parser.parseExpression(weekdayConfig)
+
+    const interval = parser.parseExpression(formatRangeHours(weekdayConfig))
     const fields = JSON.parse(JSON.stringify(interval.fields)) // Fields is immutable
 
     if (!isNil(openingConfig.weekDay[weekday])) fields.dayOfWeek = [weekday]
@@ -77,7 +72,7 @@ module.exports = (openingConfig, date = undefined) => {
 
     const hour = dayjs(date).tz(timeZone).hour() // back hour
     // use initial to gets all hours excluding the last element
-    if (!initial(fields.hour).includes(hour)) return false
+    if (!fields.hour.includes(hour)) return false
 
     const minute = dayjs(date).tz(timeZone).minute() // back minute
     if (!fields.minute.includes(minute)) return false
