@@ -7,11 +7,11 @@ const opening = {
     // Open from 16:00 to 17:59
     1: '* 16-18 * * *'
   },
-  holiday: {
+  holidays: {
     isOpen: true,
     country: 'FR',
     region: null,
-    checkHolidaysTypes: ['public', 'observance']
+    checkHolidaysTypes: ['public']
 
   }
 }

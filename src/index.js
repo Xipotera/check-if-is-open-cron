@@ -37,9 +37,9 @@ module.exports = (openingConfig, date = undefined) => {
   // eslint-disable-next-line no-param-reassign
   if (isEmpty(date)) date = dayjs().tz(timeZone).format()
   // Check public hollydays
-  if (!openingConfig.holiday.isOpen) {
+  if (!openingConfig.holidays.isOpen) {
     const hd = new Holidays()
-    hd.init({ country: openingConfig.holiday.country, region: openingConfig.holiday.region, state: openingConfig.holiday.state })
+    hd.init({ country: openingConfig.holidays.country, region: openingConfig.holidays.region, state: openingConfig.holidays.state })
     const isHD = hd.isHoliday(dayjs(date))
     if (
       Array.isArray(isHD) &&
