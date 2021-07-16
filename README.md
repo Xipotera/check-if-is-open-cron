@@ -61,13 +61,28 @@ if (!checkIsOpenCron(opening)) {
 | Parameter | Sub-Parameter | Type | Description | Sample |
 | :---: | :--- | :--- | :--- | :--- |
 | `timeZone` | | string |  TimeZone definition | `Europe/Paris`
-| `weekDay` | |object | Cron open/close [definition](https://crontab.guru/#*_9-13,14-18_*_*_1-5)
+| `weekDay` | |object | Cron open/close [definition][3]
 | | `default` | string | Cron to apply by default  | `* 10-12,14-18 * * 1-5` |
 | | `0` - `6` | string | Specific Cron for Sunday to Saturday | `* 16-18 * * *` |
-| `publicHoliday` | | objet | Based on [date-holidays](https://www.npmjs.com/package/date-holidays) plugin
+| `holidays` | | objet | Based on [date-holidays][4] plugin
 | | `isOpen` | boolean | true if holidays does not influence open / close
-| | `country`| string | Supported Countries list are on [date-holidays](https://www.npmjs.com/package/date-holidays) plugin
-| | `region`| string | Supported Regions list are on [date-holidays](https://www.npmjs.com/package/date-holidays) plugin
+| | `country`| string | Supported Countries list are on [date-holidays][4] plugin
+| | `region`| string | Supported Regions list are on [date-holidays][4] plugin
+| | `state`| string | Supported State list are on [date-holidays][4] plugin
+| | `checkHolidaysTypes`| string | Supported Types list are on [date-holidays][4] plugin
+
+
+#### Types of checkHolidaysTypes 
+Currently the following type with their meaning are supported. Based on [date-holidays][4] plugin
+
+| Type | Meaning |
+| :---: | :--- | 
+| public|	public holiday|
+| bank|	bank holiday, banks and offices are closed|
+| school|	school holiday, schools are closed|
+| optional|	majority of people take a day off|
+| observance|	optional festivity, no paid day off|
+
 
 [CodeSandBox Sample](https://codesandbox.io/s/checkisopencron-sample-v8vw2)
 
@@ -77,10 +92,10 @@ if (!checkIsOpenCron(opening)) {
 
 ### Dependencies:
 
-[dayjs](https://www.npmjs.com/package/dayjs) /
-[lodash](https://www.npmjs.com/package/lodash) /
-[cron-parser](https://www.npmjs.com/package/cron-parser) /
-[date-holidays](https://www.npmjs.com/package/date-holidays)
+[dayjs][1] /
+[lodash][2] /
+[cron-parser][3] /
+[date-holidays][4]
 
 ### Run test
 
@@ -92,3 +107,8 @@ npm run test
 ## License
 
 [MIT](LICENSE)
+
+[1]:https://www.npmjs.com/package/dayjs
+[2]:https://www.npmjs.com/package/lodash
+[3]:https://www.npmjs.com/package/cron-parser
+[4]:https://www.npmjs.com/package/date-holidays
