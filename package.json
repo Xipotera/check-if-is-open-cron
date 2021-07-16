@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/Xipotera/check-is-open-cron#readme",
   "dependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
     "babel-jest": "^27.0.6",
     "cron-parser": "^3.5.0",
     "date-holidays": "^3.8.0",
@@ -37,6 +39,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
+    "jest-config": "^27.0.6",
     "pinst": "^2.1.6",
     "standard": "^16.0.3"
   }
