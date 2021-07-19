@@ -36,6 +36,7 @@ module.exports = (openingConfig, date = undefined) => {
   const { timeZone } = openingConfig
   // eslint-disable-next-line no-param-reassign
   if (isEmpty(date)) date = dayjs().tz(timeZone).format()
+  console.log(`date fct => ${date.format()}`)
   // Check public hollydays
   if (!openingConfig.holidays.isOpen) {
     const hd = new Holidays()
@@ -70,7 +71,7 @@ module.exports = (openingConfig, date = undefined) => {
 
     if (!fields.dayOfWeek.includes(weekday)) return false
     const hour = dayjs(date).tz(timeZone).hour() // back hour
-
+    console.log(`hour fct => ${hour}`)
     // use initial to gets all hours excluding the last element
     if (!includes(fields.hour, hour)) return false
 
