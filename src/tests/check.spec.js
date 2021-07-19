@@ -48,6 +48,7 @@ for (let day = 0; day < 7; day++) {
           if ([16, 17].includes(hour)) {
             expect(isOpen(opening, date)).toBe(true)
           } else {
+            console.log(`${hour}=>${isOpen(opening, date)}`)
             expect(isOpen(opening, date)).not.toBe(true)
           }
         }
