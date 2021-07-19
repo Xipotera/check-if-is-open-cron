@@ -58,6 +58,8 @@ module.exports = (openingConfig, date = undefined) => {
       }
     }
   }
+
+  console.log(`openingConfig.weekDay => ${JSON.stringify(openingConfig.weekDay)}`)
   if (openingConfig.weekDay) {
     const weekday = dayjs(date).isoWeekday()
     // if there are specific config on days use this
@@ -67,13 +69,13 @@ module.exports = (openingConfig, date = undefined) => {
 
     const interval = parser.parseExpression(formatRangeHours(weekdayConfig))
     const fields = JSON.parse(JSON.stringify(interval.fields)) // Fields is immutable
-
     if (!isNil(openingConfig.weekDay[weekday])) fields.dayOfWeek = [weekday]
     // back day number
 
     if (!fields.dayOfWeek.includes(weekday)) return false
-
     const hour = dayjs(date).tz(timeZone).hour() // back hour
+
+    console.log(`hour => ${hour}`)
     // use initial to gets all hours excluding the last element
     if (!fields.hour.includes(hour)) return false
 
