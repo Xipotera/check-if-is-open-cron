@@ -85,6 +85,9 @@ test('Test is Mother\'s day 2021 is Close', () => {
   opening.holidays.isOpen = false
   opening.holidays.checkHolidaysTypes = ['public', 'observance']
   opening.weekDay[7] = '* 16-18 * * *'
+  opening.holidays.country = 'US'
+  opening.holidays.state = 'la'
+  opening.holidays.region = 'no'
   const date = dayjs('20210509').hour(17).tz('Europe/Paris').format()
   expect(isOpen(opening, date)).toBe(false)
 })
