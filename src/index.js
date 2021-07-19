@@ -70,7 +70,6 @@ module.exports = (openingConfig, date = undefined) => {
 
     if (!fields.dayOfWeek.includes(weekday)) return false
     const hour = dayjs(date).tz(timeZone).hour() // back hour
-    // use initial to gets all hours excluding the last element
     if (!includes(fields.hour, hour)) return false
 
     const minute = dayjs(date).tz(timeZone).minute() // back minute
