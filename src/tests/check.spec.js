@@ -69,21 +69,21 @@ for (let day = 0; day < 7; day++) {
 }
 
 test('Test is Mother\'s day 2021 is Open', () => {
-  opening.holiday.isOpen = false
-  opening.holiday.checkHolidaysTypes = ['public']
+  opening.holidays.isOpen = false
+  opening.holidays.checkHolidaysTypes = ['public']
   opening.weekDay[7] = '* 16-18 * * *'
-  // initialize holidays for US, Lousiana, New Orleans
-  opening.holiday.country = 'US'
-  opening.holiday.state = 'la'
-  opening.holiday.region = 'no'
+  // initialize holidayss for US, Lousiana, New Orleans
+  opening.holidays.country = 'US'
+  opening.holidays.state = 'la'
+  opening.holidays.region = 'no'
 
   const date = dayjs('20210509').hour(17).tz('Europe/Paris').format()
   expect(isOpen(opening, date)).toBe(true)
 })
 
 test('Test is Mother\'s day 2021 is Close', () => {
-  opening.holiday.isOpen = false
-  opening.holiday.checkHolidaysTypes = ['public', 'observance']
+  opening.holidays.isOpen = false
+  opening.holidays.checkHolidaysTypes = ['public', 'observance']
   opening.weekDay[7] = '* 16-18 * * *'
   const date = dayjs('20210509').hour(17).tz('Europe/Paris').format()
   expect(isOpen(opening, date)).toBe(false)
