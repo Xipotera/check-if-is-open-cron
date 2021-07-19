@@ -6,8 +6,8 @@ on:
       - 'prod'
 
 jobs:
-  build:
-    name: 'Build package'
+  test:
+    name: 'Tests package'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,10 +16,10 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm test
-  bump-version:
-    name: 'Bump Version on master'
+  release:
+    name: 'Create Release'
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
@@ -29,11 +29,33 @@ jobs:
         id: version-bump
         uses: 'phips28/gh-action-bump-version@master'
         with:
-          tag-prefix: 'v'
+          skip-tag: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Changelog message
+        id: changelog
+        uses: scottbrenner/generate-changelog-action@master
+        env:
+          REPO: ${{ github.repository }}
+      - name: Read new Version
+        id: reader
+        run: |
+          PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+          echo "::set-output name=read_version::$PACKAGE_VERSION"
+      - name: Create Github Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.reader.outputs.read_version }}
+          release_name: v.${{ steps.reader.outputs.read_version }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
   publish-npm:
-    needs: bump-version
+    needs: [release]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -35,7 +35,7 @@ for (let day = 0; day < 7; day++) {
     case 6:
       test(`Test is Close on ${arrayOfDays[day]}`, () => {
         for (let hour = 0; hour < 24; hour++) {
-          const date = dayjs(new Date()).hour(hour).day(day).tz('Europe/Paris')
+          const date = dayjs(new Date()).tz('Europe/Paris').hour(hour).day(day)
           expect(isOpen(opening, date)).not.toBe(true)
         }
       })
@@ -43,7 +43,7 @@ for (let day = 0; day < 7; day++) {
     case 1:
       test(`Test is ${arrayOfDays[day]}`, () => {
         for (let hour = 0; hour < 24; hour++) {
-          const date = dayjs(new Date()).hour(hour).day(day).tz('Europe/Paris')
+          const date = dayjs(new Date()).tz(opening.timeZone).hour(hour).day(day)
           if ([16, 17].includes(hour)) {
             expect(isOpen(opening, date)).toBe(true)
           } else {
@@ -56,7 +56,7 @@ for (let day = 0; day < 7; day++) {
     default:
       test(`Test is ${arrayOfDays[day]}`, () => {
         for (let hour = 0; hour < 24; hour++) {
-          const date = dayjs(new Date()).hour(hour).day(day).tz('Europe/Paris')
+          const date = dayjs(new Date()).tz('Europe/Paris').hour(hour).day(day)
           if ([10, 11, 14, 15, 16, 17].includes(hour)) {
             expect(isOpen(opening, date)).toBe(true)
           } else {
@@ -77,7 +77,7 @@ test('Test is Mother\'s day 2021 is Open', () => {
   opening.holidays.state = 'la'
   opening.holidays.region = 'no'
 
-  const date = dayjs('20210509').hour(17).tz('Europe/Paris').format()
+  const date = dayjs('20210509').tz('Europe/Paris').hour(17).format()
   expect(isOpen(opening, date)).toBe(true)
 })
 
@@ -88,6 +88,6 @@ test('Test is Mother\'s day 2021 is Close', () => {
   opening.holidays.country = 'US'
   opening.holidays.state = 'la'
   opening.holidays.region = 'no'
-  const date = dayjs('20210509').hour(17).tz('Europe/Paris').format()
+  const date = dayjs('20210509').tz('Europe/Paris').hour(17).format()
   expect(isOpen(opening, date)).toBe(false)
 })

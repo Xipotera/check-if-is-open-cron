@@ -1,5 +1,5 @@
 const {
-  isNil, find, isEmpty
+  isNil, find, isEmpty, includes
 } = require('lodash')
 const parser = require('cron-parser')
 
@@ -55,6 +55,7 @@ module.exports = (openingConfig, date = undefined) => {
       }
     }
   }
+
   if (openingConfig.weekDay) {
     const weekday = dayjs(date).isoWeekday()
     // if there are specific config on days use this
@@ -64,18 +65,15 @@ module.exports = (openingConfig, date = undefined) => {
 
     const interval = parser.parseExpression(formatRangeHours(weekdayConfig))
     const fields = JSON.parse(JSON.stringify(interval.fields)) // Fields is immutable
-
     if (!isNil(openingConfig.weekDay[weekday])) fields.dayOfWeek = [weekday]
     // back day number
 
     if (!fields.dayOfWeek.includes(weekday)) return false
-
     const hour = dayjs(date).tz(timeZone).hour() // back hour
-    // use initial to gets all hours excluding the last element
-    if (!fields.hour.includes(hour)) return false
+    if (!includes(fields.hour, hour)) return false
 
     const minute = dayjs(date).tz(timeZone).minute() // back minute
-    if (!fields.minute.includes(minute)) return false
+    if (!includes(fields.minute, minute)) return false
   } else return false
   return true
 }

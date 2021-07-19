@@ -2,7 +2,7 @@
 ![](https://img.shields.io/github/stars/Xipotera/check-is-open-cron?style=social)
 
 
-# check-is-open-cron
+# Check If Is Open Cron
 
 
 ### General information
@@ -21,10 +21,12 @@ const opening = {
   weekDay: {
     default: "* 10-12,14-18 * * 1-5"
   },
-  publicHoliday: {
+  holidays: {
     isOpen: false,
     country: "FR",
-    region: null
+    region: null,
+    state: null,
+    checkHolidaysTypes: ['public']
   }
 };
 ```
@@ -43,10 +45,12 @@ const opening = {
     default: "* 10-12,14-18 * * 1-5",
     1: "* 16-18 * * *"
   },
-  publicHoliday: {
+  holidays: {
     isOpen: false,
     country: "FR",
-    region: null
+    region: null,
+    state: null,
+    checkHolidaysTypes: ['public']
   }
 };
 
