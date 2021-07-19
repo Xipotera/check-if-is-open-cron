@@ -41,9 +41,6 @@ module.exports = (openingConfig, date = undefined) => {
     const hd = new Holidays()
     hd.init({ country: openingConfig.holidays.country, region: openingConfig.holidays.region, state: openingConfig.holidays.state })
     const isHD = hd.isHoliday(dayjs(date))
-    console.log('isHD')
-    console.log(isHD)
-    console.log('isHD')
     if (
       Array.isArray(isHD) &&
       isHD.length > 0
@@ -59,7 +56,6 @@ module.exports = (openingConfig, date = undefined) => {
     }
   }
 
-  console.log(`openingConfig.weekDay => ${JSON.stringify(openingConfig.weekDay)}`)
   if (openingConfig.weekDay) {
     const weekday = dayjs(date).isoWeekday()
     // if there are specific config on days use this
@@ -75,6 +71,8 @@ module.exports = (openingConfig, date = undefined) => {
     if (!fields.dayOfWeek.includes(weekday)) return false
     const hour = dayjs(date).tz(timeZone).hour() // back hour
 
+    console.log(`fields.hour => ${fields.hour}`)
+    console.log(`fields.hour JS => ${JSON.stringify(fields.hour)}`)
     console.log(`hour => ${hour}`)
     // use initial to gets all hours excluding the last element
     if (!fields.hour.includes(hour)) return false
