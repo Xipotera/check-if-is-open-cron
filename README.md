@@ -1,5 +1,5 @@
-![](https://img.shields.io/npm/v/check-is-open-cron) ![](https://img.shields.io/npm/dm/check-is-open-cron) [![install size](https://packagephobia.com/badge?p=check-is-open-cron)](https://packagephobia.com/result?p=check-is-open-cron) ![](https://img.shields.io/github/issues/Xipotera/check-is-open-cron) ![](https://img.shields.io/github/issues-closed/Xipotera/check-is-open-cron?label=closed%20issues) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
-![](https://img.shields.io/github/stars/Xipotera/check-is-open-cron?style=social)
+![](https://img.shields.io/npm/v/check-if-is-open-cron) ![](https://img.shields.io/npm/dm/check-if-is-open-cron) [![install size](https://packagephobia.com/badge?p=check-if-is-open-cron)](https://packagephobia.com/result?p=check-if-is-open-cron) ![](https://img.shields.io/github/issues/Xipotera/check-if-is-open-cron) ![](https://img.shields.io/github/issues-closed/Xipotera/check-if-is-open-cron?label=closed%20issues) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+![](https://img.shields.io/github/stars/Xipotera/check-if-is-open-cron?style=social)
 
 
 # Check If Is Open Cron
