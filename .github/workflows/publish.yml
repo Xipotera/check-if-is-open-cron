@@ -16,8 +16,8 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm test
-  bump-version:
-    name: 'Bump Version on prod'
+  release:
+    name: 'Create Release'
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -32,11 +32,6 @@ jobs:
           skip-tag: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  release:
-    name: 'Release'
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
       - name: Build Changelog message
         id: changelog
         uses: scottbrenner/generate-changelog-action@master
