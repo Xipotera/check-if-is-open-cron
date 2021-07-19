@@ -78,6 +78,7 @@ module.exports = (openingConfig, date = undefined) => {
     if (!fields.hour.includes(hour)) return false
 
     const minute = dayjs(date).tz(timeZone).minute() // back minute
+    console.log(`minute => ${minute}`)
     if (!fields.minute.includes(minute)) return false
   } else return false
   return true
