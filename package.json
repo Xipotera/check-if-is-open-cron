@@ -1,6 +1,6 @@
 {
-  "name": "check-is-open-cron",
-  "version": "1.0.1",
+  "name": "check-if-is-open-cron",
+  "version": "1.0.0",
   "description": "Small script to know if a business/service is open or closed from a date using cron definition",
   "main": "src/index.js",
   "private": false,
