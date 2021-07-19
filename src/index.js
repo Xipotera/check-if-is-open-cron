@@ -47,7 +47,7 @@ module.exports = (openingConfig, date = undefined) => {
     ) {
       const BreakException = false
       try {
-        openingConfig.holiday.checkHolidaysTypes.forEach((holidaysTypes) => {
+        openingConfig.holidays.checkHolidaysTypes.forEach((holidaysTypes) => {
           if (find(isHD, { type: holidaysTypes })) throw BreakException
         })
       } catch (e) {
