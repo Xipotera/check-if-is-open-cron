@@ -44,11 +44,9 @@ for (let day = 0; day < 7; day++) {
       test(`Test is ${arrayOfDays[day]}`, () => {
         for (let hour = 0; hour < 24; hour++) {
           const date = dayjs(new Date()).tz(opening.timeZone).hour(hour).day(day)
-          console.log(`date => ${date.format()}`)
           if ([16, 17].includes(hour)) {
             expect(isOpen(opening, date)).toBe(true)
           } else {
-            console.log(`hour => ${hour}`)
             expect(isOpen(opening, date)).not.toBe(true)
           }
         }
