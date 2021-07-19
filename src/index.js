@@ -1,5 +1,5 @@
 const {
-  isNil, find, isEmpty
+  isNil, find, isEmpty, includes
 } = require('lodash')
 const parser = require('cron-parser')
 
@@ -75,11 +75,10 @@ module.exports = (openingConfig, date = undefined) => {
     console.log(`fields.hour JS => ${JSON.stringify(fields.hour)}`)
     console.log(`hour => ${hour}`)
     // use initial to gets all hours excluding the last element
-    if (!fields.hour.includes(hour)) return false
+    if (!includes(fields.hour, hour)) return false
 
     const minute = dayjs(date).tz(timeZone).minute() // back minute
-    console.log(`minute => ${minute}`)
-    if (!fields.minute.includes(minute)) return false
+    if (!includes(fields.minute, minute)) return false
   } else return false
   return true
 }
