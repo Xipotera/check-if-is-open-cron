@@ -41,6 +41,9 @@ module.exports = (openingConfig, date = undefined) => {
     const hd = new Holidays()
     hd.init({ country: openingConfig.holidays.country, region: openingConfig.holidays.region, state: openingConfig.holidays.state })
     const isHD = hd.isHoliday(dayjs(date))
+    console.log('isHD')
+    console.log(isHD)
+    console.log('isHD')
     if (
       Array.isArray(isHD) &&
       isHD.length > 0
