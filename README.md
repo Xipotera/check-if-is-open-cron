@@ -11,7 +11,7 @@ Small script to know if a business/service is open or closed from a date.
 
 ### Get started
 
-```npm i check-is-open-cron```
+```npm i check-if-is-open-cron```
 
 Define an object with opening hours like this:
 
