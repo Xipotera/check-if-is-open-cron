@@ -37,28 +37,29 @@ To override Monday open hours to 16:00 to 17:59 add this `1: "* 16-18 * * *"`
 
 
 ```
-const {checkIsOpenCron} = require('check-is-open-cron')
+const checkIsOpenCron = require("check-if-is-open-cron");
 
 const opening = {
   timeZone: "Europe/Paris",
   weekDay: {
     default: "* 10-12,14-18 * * 1-5",
-    1: "* 16-18 * * *"
+    3: "* 16-18 * * *"
   },
   holidays: {
     isOpen: false,
     country: "FR",
     region: null,
     state: null,
-    checkHolidaysTypes: ['public']
+    checkHolidaysTypes: ["public"]
   }
 };
 
 if (!checkIsOpenCron(opening)) {
-    console.log("🛑 Closed 🛑")
+  console.log("🛑 Closed 🛑");
 } else {
-    console.log("🟢 Open 🟢")
+  console.log("🟢 Open 🟢");
 }
+
 ```
 
 
@@ -87,8 +88,6 @@ Currently the following type with their meaning are supported. Based on [date-ho
 | optional|	majority of people take a day off|
 | observance|	optional festivity, no paid day off|
 
-
-[CodeSandBox Sample](https://codesandbox.io/s/checkisopencron-sample-v8vw2)
 
 ### Cron notation
 
